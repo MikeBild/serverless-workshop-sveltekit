@@ -10,7 +10,7 @@
 	</ul>
 	<ul>
 		<li>
-			<strong>{username || ''}</strong>
+			<a href="/profile" class="secondary"><strong>{username || ''}</strong></a>
 		</li>
 
 		<li>

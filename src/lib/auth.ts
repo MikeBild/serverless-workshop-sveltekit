@@ -2,7 +2,8 @@ import {
 	CognitoUser,
 	CognitoUserPool,
 	AuthenticationDetails,
-	CognitoUserAttribute
+	CognitoUserAttribute,
+	CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import { USERPOOLID, USERPOOLCLIENTID } from '$env/static/private';
 
@@ -68,6 +69,23 @@ export async function signOut(username: string) {
 	return new Promise<void>((resolve) => {
 		userPool?.getCurrentUser()?.signOut(() => resolve());
 	});
+}
+
+export async function getSession(): Promise<CognitoUserSession | null> {
+	return new Promise((resolve, reject) => {
+		const user = userPool?.getCurrentUser();
+		if (!user) return reject(new Error('User is not logged in.'));
+
+		user.getSession((error: Error | null, session: CognitoUserSession | null) => {
+			if (error) return reject(error);
+			resolve(session);
+		});
+	});
+}
+
+export async function getCurrentUserGroups() {
+	const session = await getSession();
+	return session?.getAccessToken().payload['cognito:groups'];
 }
 
 export async function resetPassword(username: string, oldPassword: string, newPassword: string) {
