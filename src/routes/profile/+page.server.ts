@@ -1,7 +1,3 @@
-import { getCurrentUserGroups } from '$lib/auth';
-
-export async function load() {
-	const data = await getCurrentUserGroups();
-
-	return data;
+export async function load({ locals }) {
+	return locals;
 }

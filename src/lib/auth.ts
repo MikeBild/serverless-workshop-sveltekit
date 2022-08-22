@@ -65,7 +65,7 @@ export async function verifyUser(username: string, code: string) {
 	});
 }
 
-export async function signOut(username: string) {
+export async function signOut() {
 	return new Promise<void>((resolve) => {
 		userPool?.getCurrentUser()?.signOut(() => resolve());
 	});
@@ -86,6 +86,15 @@ export async function getSession(): Promise<CognitoUserSession | null> {
 export async function getCurrentUserGroups() {
 	const session = await getSession();
 	return session?.getAccessToken().payload['cognito:groups'];
+}
+
+export async function getCurrentUsername(): Promise<string | null> {
+	return new Promise((resolve, reject) => {
+		const user = userPool?.getCurrentUser()?.getUsername();
+		if (!user) return reject(new Error('User is not logged in.'));
+
+		resolve(user);
+	});
 }
 
 export async function resetPassword(username: string, oldPassword: string, newPassword: string) {
