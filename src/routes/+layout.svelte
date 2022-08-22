@@ -13,10 +13,9 @@
 </svelte:head>
 
 <Header username={data.username} />
+
 <main class="container">
-	
-		<slot />
-	
+	<slot />
 </main>
 
 <Footer />
