@@ -1,0 +1,40 @@
+{
+	"name": "sveltekit-cognito-auth",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check --plugin-search-dir=. .",
+		"format": "prettier --write --plugin-search-dir=. .",
+		"destroy": "destroy"
+	},
+	"devDependencies": {
+		"@aws-cdk/aws-dynamodb": "1.169.0",
+		"@aws-cdk/aws-iam": "1.169.0",
+		"@picocss/pico": "1.5.3",
+		"@playwright/test": "1.25.0",
+		"@sveltejs/kit": "1.0.0-next.428",
+		"@types/node": "18.7.9",
+		"amazon-cognito-identity-js": "5.2.10",
+		"aws-cdk": "2.38.1",
+		"aws-cdk-ses-domain-identity": "2.0.0",
+		"aws-sdk": "2.1199.0",
+		"mdsvex": "0.10.6",
+		"prettier": "2.7.1",
+		"prettier-plugin-svelte": "2.7.0",
+		"remixicon": "2.5.0",
+		"svelte": "3.49.0",
+		"svelte-check": "2.8.1",
+		"svelte-preprocess": "4.10.7",
+		"sveltekit-adapter-aws": "3.3.5",
+		"tslib": "2.4.0",
+		"typescript": "4.7.4",
+		"vite": "3.0.9"
+	},
+	"type": "module"
+}
