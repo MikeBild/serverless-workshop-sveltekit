@@ -1,19 +1,10 @@
-import { Stack, CfnOutput, RemovalPolicy } from '@aws-cdk/core';
-import {
-	UserPool,
-	UserPoolClient,
-	OAuthScope,
-	UserPoolClientIdentityProvider,
-	ClientAttributes,
-	StringAttribute,
-	UserPoolDomain
-} from '@aws-cdk/aws-cognito';
+import { Stack, CfnOutput, RemovalPolicy, aws_cognito } from 'aws-cdk-lib';
 
 export class CognitoStack extends Stack {
 	constructor(parent, id, props) {
 		super(parent, id, props);
 
-		this.userPool = new UserPool(this, `user-pool`, {
+		this.userPool = new aws_cognito.UserPool(this, `user-pool`, {
 			removalPolicy: RemovalPolicy.DESTROY,
 			autoVerify: { email: true },
 			selfSignUpEnabled: true,
@@ -33,8 +24,8 @@ export class CognitoStack extends Stack {
 				}
 			],
 			customAttributes: {
-				role: new StringAttribute({ mutable: true }),
-				tenant: new StringAttribute({ mutable: true })
+				role: new aws_cognito.StringAttribute({ mutable: true }),
+				tenant: new aws_cognito.StringAttribute({ mutable: true })
 			}
 		});
 
@@ -42,14 +33,14 @@ export class CognitoStack extends Stack {
 			value: this.userPool.userPoolId
 		});
 
-		this.userPoolDomain = new UserPoolDomain(this, `user-pool-domain`, {
+		this.userPoolDomain = new aws_cognito.UserPoolDomain(this, `user-pool-domain`, {
 			userPool: this.userPool,
 			cognitoDomain: {
 				domainPrefix: `serverless-workshop`
 			}
 		});
 
-		const clientWriteAttributes = new ClientAttributes()
+		const clientWriteAttributes = new aws_cognito.ClientAttributes()
 			.withStandardAttributes({
 				familyName: true,
 				givenName: true,
@@ -70,15 +61,20 @@ export class CognitoStack extends Stack {
 			})
 			.withCustomAttributes('role', 'tenant');
 
-		this.userPoolClient = new UserPoolClient(this, `user-pool-client`, {
+		this.userPoolClient = new aws_cognito.UserPoolClient(this, `user-pool-client`, {
 			generateSecret: false,
 			userPool: this.userPool,
 			preventUserExistenceErrors: true,
-			supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
+			supportedIdentityProviders: [aws_cognito.UserPoolClientIdentityProvider.COGNITO],
 			oAuth: {
 				flows: { authorizationCodeGrant: true },
 				callbackUrls: [`https://${process.env.FQDN}`, 'http://localhost:5173'],
-				scopes: [OAuthScope.COGNITO_ADMIN, OAuthScope.OPENID, OAuthScope.PROFILE, OAuthScope.EMAIL]
+				scopes: [
+					aws_cognito.OAuthScope.COGNITO_ADMIN,
+					aws_cognito.OAuthScope.OPENID,
+					aws_cognito.OAuthScope.PROFILE,
+					aws_cognito.OAuthScope.EMAIL
+				]
 			},
 			readAttributes: clientReadAttributes,
 			writeAttributes: clientWriteAttributes
