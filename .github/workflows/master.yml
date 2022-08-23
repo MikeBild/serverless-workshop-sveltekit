@@ -2,7 +2,7 @@ name: Serverless-Workshop
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 env:
   AWS_REGION: 'eu-central-1'
