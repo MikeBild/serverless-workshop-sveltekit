@@ -21,6 +21,9 @@
 				<ul role="listbox">
 					<li><a href="/shop">shop</a></li>
 					<li><a href="/contact">contact</a></li>
+					{#if username}
+					<li><a href="/users">users</a></li>
+					{/if}
 					<li>
 						{#if username}
 							<form method="post" action="/auth/signout">

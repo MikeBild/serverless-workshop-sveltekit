@@ -29,6 +29,8 @@ export class CognitoStack extends Stack {
 			}
 		});
 
+		this.userPool.grant(props.serverHandler, ['cognito-idp:*']);
+
 		new CfnOutput(this, `userPoolId`, {
 			value: this.userPool.userPoolId
 		});
