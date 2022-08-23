@@ -105,6 +105,24 @@
     tiny-glob "^0.2.9"
     undici "^5.8.1"
 
+"@sveltejs/kit@1.0.0-next.430":
+  version "1.0.0-next.430"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.430.tgz#5748acbd69c9c2e7b8a344ef9f6539e3b896e007"
+  integrity sha512-0NL6DfFWASDkvjL6iCr3pO/u1oqvoF75lvnO6QTB0rIHMYOL+l9BAkxVETnNxzvgLRFCECi6NSh2C0bdaYaM1g==
+  dependencies:
+    "@sveltejs/vite-plugin-svelte" "^1.0.1"
+    cookie "^0.5.0"
+    devalue "^2.0.1"
+    kleur "^4.1.4"
+    magic-string "^0.26.2"
+    mime "^3.0.0"
+    node-fetch "^3.2.4"
+    sade "^1.8.1"
+    set-cookie-parser "^2.4.8"
+    sirv "^2.0.2"
+    tiny-glob "^0.2.9"
+    undici "^5.8.1"
+
 "@sveltejs/vite-plugin-svelte@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@sveltejs/vite-plugin-svelte/-/vite-plugin-svelte-1.0.2.tgz#d9997e9f1aeca7b5f72634e774c4f0c7207134b3"
@@ -116,6 +134,11 @@
     kleur "^4.1.5"
     magic-string "^0.26.2"
     svelte-hmr "^0.14.12"
+
+"@types/cookie@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.5.1.tgz#b29aa1f91a59f35e29ff8f7cb24faf1a3a750554"
+  integrity sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==
 
 "@types/node@*", "@types/node@18.7.11":
   version "18.7.11"
@@ -298,7 +321,7 @@ constructs@10.1.84:
   resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.84.tgz#be136076ce8c0c7e0be5c1ab2974cea82dc1ee3f"
   integrity sha512-UeKlo2RAQOC7WR38qcGMGtvQse0gRK72eWBAik+/O7HEg0i4w3I6PzycXoNL48Y0qMQG1LF6g3+d84j9LCEt8A==
 
-cookie@^0.5.0:
+cookie@0.5.0, cookie@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
   integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
@@ -1366,10 +1389,10 @@ svelte@3.49.0:
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
   integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
 
-sveltekit-adapter-aws@4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/sveltekit-adapter-aws/-/sveltekit-adapter-aws-4.0.8.tgz#f9e88d8c4d34e0ccfed5974584dd6841bd62e171"
-  integrity sha512-8wjy/Uh8jVWcMB0TgAyuG7A33IYCCmrvqxMHkYofrJmRTKW8Wv+pKBPjmbqCgut5QghEDaHzqC84joBMG/k8Lg==
+sveltekit-adapter-aws@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/sveltekit-adapter-aws/-/sveltekit-adapter-aws-4.1.0.tgz#720d15a05c4dc323772c272ab358b3108d449409"
+  integrity sha512-9+FMKG0RCveVmF3vwdSOL/fh2JD96m3/Uy+EsmzrBiLyT571KXxDoJXXU54VtZ+wgTGHnyZ2PXLf6ENcZ++MjQ==
   dependencies:
     "@aws-cdk/aws-apigatewayv2-alpha" "2.38.1-alpha.0"
     "@aws-cdk/aws-apigatewayv2-integrations-alpha" "2.38.1-alpha.0"

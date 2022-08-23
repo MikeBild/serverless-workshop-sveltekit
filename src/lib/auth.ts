@@ -15,7 +15,7 @@ export const userPool =
 		  })
 		: null;
 
-export async function signIn(username: string, password: string) {
+export async function signIn(username: string, password: string): Promise<CognitoUserSession> {
 	const user = new CognitoUser({
 		Username: username,
 		Pool: userPool!
@@ -83,12 +83,12 @@ export async function getSession(): Promise<CognitoUserSession | null> {
 	});
 }
 
-export async function getCurrentUserGroups() {
+export async function getCurrentUserGroups(): Promise<string[] | undefined> {
 	const session = await getSession();
 	return session?.getAccessToken().payload['cognito:groups'];
 }
 
-export async function getCurrentUsername(): Promise<string | null> {
+export async function getCurrentUsername(): Promise<string | undefined> {
 	return new Promise((resolve, reject) => {
 		const user = userPool?.getCurrentUser()?.getUsername();
 		if (!user) return reject(new Error('User is not logged in.'));

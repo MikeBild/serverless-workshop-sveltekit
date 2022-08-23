@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
 	import '../global.css';
 	import '@picocss/pico/css/pico.css';
 	import 'remixicon/fonts/remixicon.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import type { LayoutServerData } from './$types';
 
-	export let data = { username: '' };
+	export let data: LayoutServerData;
 </script>
 
 <svelte:head>

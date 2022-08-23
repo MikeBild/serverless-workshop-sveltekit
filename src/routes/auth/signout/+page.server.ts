@@ -1,12 +1,13 @@
+import type { Action } from '@sveltejs/kit';
 import { signOut } from '$lib/auth';
 
-export async function POST({ locals }) {
+export const POST: Action = async ({ locals }) => {
 	await signOut();
-	
+
 	locals.username = '';
-	locals.usergroups = '';
-	
+	locals.usergroups = [];
+
 	return {
 		location: '/'
 	};
-}
+};

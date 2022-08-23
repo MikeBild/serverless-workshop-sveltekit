@@ -14,9 +14,11 @@
 		"destroy": "destroy"
 	},
 	"devDependencies": {
+		"cookie": "0.5.0",
+		"@types/cookie": "0.5.1",
 		"@picocss/pico": "1.5.3",
 		"@playwright/test": "1.25.0",
-		"@sveltejs/kit": "1.0.0-next.429",
+		"@sveltejs/kit": "1.0.0-next.430",
 		"@types/node": "18.7.11",
 		"amazon-cognito-identity-js": "5.2.10",
 		"aws-cdk": "2.38.1",
@@ -31,7 +33,7 @@
 		"svelte": "3.49.0",
 		"svelte-check": "2.8.1",
 		"svelte-preprocess": "4.10.7",
-		"sveltekit-adapter-aws": "4.0.8",
+		"sveltekit-adapter-aws": "4.1.0",
 		"tslib": "2.4.0",
 		"typescript": "4.7.4",
 		"vite": "3.0.9"
