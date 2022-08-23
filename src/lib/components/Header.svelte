@@ -1,5 +1,5 @@
-<script>
-	export let username = '';
+<script lang="ts">
+	export let username: string | undefined = undefined;
 </script>
 
 <nav class="container-fluid sticky">
@@ -22,7 +22,7 @@
 					<li><a href="/shop">shop</a></li>
 					<li><a href="/contact">contact</a></li>
 					{#if username}
-					<li><a href="/users">users</a></li>
+						<li><a href="/users">users</a></li>
 					{/if}
 					<li>
 						{#if username}

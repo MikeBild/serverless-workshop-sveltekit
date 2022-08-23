@@ -6,6 +6,9 @@ import preprocess from 'svelte-preprocess';
 export default {
 	preprocess: preprocess(),
 	kit: {
+		alias: {
+			$models: 'src/models'
+		},
 		adapter: adapter({
 			autoDeploy: true,
 			cdkProjectPath: join(process.cwd(), './infrastructure/deploy.js')

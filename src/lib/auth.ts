@@ -3,7 +3,8 @@ import {
 	CognitoUserPool,
 	AuthenticationDetails,
 	CognitoUserAttribute,
-	CognitoUserSession
+	CognitoUserSession,
+	type ISignUpResult
 } from 'amazon-cognito-identity-js';
 import { USERPOOLID, USERPOOLCLIENTID } from '$env/static/private';
 
@@ -13,9 +14,12 @@ export const userPool =
 				UserPoolId: USERPOOLID,
 				ClientId: USERPOOLCLIENTID
 		  })
-		: null;
+		: undefined;
 
-export async function signIn(username: string, password: string): Promise<CognitoUserSession> {
+export async function signIn(
+	username: string,
+	password: string
+): Promise<CognitoUserSession | undefined> {
 	const user = new CognitoUser({
 		Username: username,
 		Pool: userPool!
@@ -28,14 +32,15 @@ export async function signIn(username: string, password: string): Promise<Cognit
 		user.authenticateUser(authDetails, {
 			onSuccess: resolve,
 			onFailure: reject,
-			newPasswordRequired: (data) => {
-				console.log('newPasswordRequired', data);
-			}
+			newPasswordRequired: reject
 		});
 	});
 }
 
-export async function signUp(username: string, password: string) {
+export async function signUp(
+	username: string,
+	password: string
+): Promise<ISignUpResult | undefined> {
 	return new Promise((resolve, reject) => {
 		userPool!.signUp(
 			username,
@@ -51,12 +56,11 @@ export async function signUp(username: string, password: string) {
 	});
 }
 
-export async function verifyUser(username: string, code: string) {
-	const user = new CognitoUser({
-		Username: username,
-		Pool: userPool!
-	});
+export async function verifyUser(code: string): Promise<any | undefined> {
 	return new Promise<void>((resolve, reject) => {
+		const user = userPool?.getCurrentUser();
+		if (!user) return reject(new Error('User is not logged in.'));
+
 		user.confirmRegistration(code, false, (error, data) => {
 			if (error) return reject(error);
 
@@ -71,12 +75,12 @@ export async function signOut() {
 	});
 }
 
-export async function getSession(): Promise<CognitoUserSession | null> {
+export async function getSession(): Promise<CognitoUserSession | undefined> {
 	return new Promise((resolve, reject) => {
 		const user = userPool?.getCurrentUser();
 		if (!user) return reject(new Error('User is not logged in.'));
 
-		user.getSession((error: Error | null, session: CognitoUserSession | null) => {
+		user.getSession((error: Error | null, session: CognitoUserSession | undefined) => {
 			if (error) return reject(error);
 			resolve(session);
 		});
@@ -97,9 +101,12 @@ export async function getCurrentUsername(): Promise<string | undefined> {
 	});
 }
 
-export async function resetPassword(username: string, oldPassword: string, newPassword: string) {
+export async function resetPassword(oldPassword: string, newPassword: string) {
 	return new Promise((resolve, reject) => {
-		userPool?.getCurrentUser()?.changePassword(oldPassword, newPassword, (error, data) => {
+		const user = userPool?.getCurrentUser();
+		if (!user) return reject(new Error('User is not logged in.'));
+
+		user.changePassword(oldPassword, newPassword, (error, data) => {
 			if (error) return reject(error);
 			resolve(data);
 		});
