@@ -8,7 +8,7 @@
 	<input type="email" name="username" required />
 	<input type="password" name="password" required />
 	{#if errors}
-		<p>{errors?.usernameOrPasswordError}</p>
+		<p>{errors?.usernameOrPasswordError || errors?.signUpError}</p>
 	{/if}
 	<input type="submit" value="sign up" />
 </form>

@@ -7,6 +7,10 @@ export const load = () => {
 };
 
 export const POST: Action = async ({ locals, setHeaders }) => {
+	if (!locals.accessToken) {
+		throw redirect(303, '/auth/signin');
+	}
+	
 	await signOut(locals.accessToken);
 
 	locals.accessToken = undefined;

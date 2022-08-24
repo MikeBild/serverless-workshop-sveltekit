@@ -7,12 +7,16 @@ export const POST: Action = async ({ request, url }) => {
 	const username = url.searchParams.get('username');
 
 	if (!(username && code)) {
-		return { errors: { usernameOrCodeError: 'username or code missing' } };
+		return { errors: { usernameOrCodeError: 'username or code missing', verifyCodeError: '' } };
 	}
 
-	await verifyUser(username!, code);
+	try {
+		await verifyUser(username!, code);
 
-	return {
-		location: '/auth/signin'
-	};
+		return {
+			location: '/auth/signin'
+		};
+	} catch (error) {
+		return { errors: { usernameOrCodeError: '', verifyCodeError: (error as Error).message } };
+	}
 };

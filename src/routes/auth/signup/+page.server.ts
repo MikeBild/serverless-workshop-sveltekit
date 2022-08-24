@@ -6,12 +6,20 @@ export const POST: Action = async ({ request }) => {
 	const { username, password } = Object.fromEntries(form) as { [name: string]: string };
 
 	if (!(username && password)) {
-		return { errors: { usernameOrPasswordError: 'username or password missing' } };
+		return {
+			errors: { usernameOrPasswordError: 'username or password missing', signUpError: '' }
+		};
 	}
 
-	await signUp(username, password);
+	try {
+		await signUp(username, password);
 
-	return {
-		location: `/auth/verify?username=${username}`
-	};
+		return {
+			location: `/auth/verify?username=${username}`
+		};
+	} catch (error) {
+		return {
+			errors: { usernameOrPasswordError: '', signUpError: (error as Error).message }
+		};
+	}
 };
