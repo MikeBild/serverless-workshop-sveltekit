@@ -49,6 +49,7 @@ exports.handler = async (event, context) => {
 		props.table.grantReadWriteData(this.stepfunctionCallbackHandler);
 
 		this.stateMachine = new aws_stepfunctions.StateMachine(this, 'StepFunctionStateMachine', {
+			timeout: Duration.days(7),
 			definition: new aws_stepfunctions_tasks.LambdaInvoke(this, 'LambdaCallbackFunction', {
 				integrationPattern: aws_stepfunctions.IntegrationPattern.WAIT_FOR_TASK_TOKEN,
 				lambdaFunction: this.stepfunctionCallbackHandler,
