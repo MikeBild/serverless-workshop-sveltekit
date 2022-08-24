@@ -68,6 +68,9 @@ export class CognitoStack extends Stack {
 			userPool: this.userPool,
 			preventUserExistenceErrors: true,
 			supportedIdentityProviders: [aws_cognito.UserPoolClientIdentityProvider.COGNITO],
+			authFlows: {
+				userPassword: true
+			},
 			oAuth: {
 				flows: { authorizationCodeGrant: true },
 				callbackUrls: [`https://${process.env.FQDN}`, 'http://localhost:5173'],
@@ -81,7 +84,6 @@ export class CognitoStack extends Stack {
 			readAttributes: clientReadAttributes,
 			writeAttributes: clientWriteAttributes
 		});
-
 		new CfnOutput(this, `userPoolClientId`, {
 			value: this.userPoolClient.userPoolClientId
 		});

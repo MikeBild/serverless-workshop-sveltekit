@@ -3,6 +3,7 @@
 // and what to do when importing types
 declare namespace App {
 	interface Locals {
+		accessToken?: string;
 		username?: string;
 		usergroups?: string[];
 	}

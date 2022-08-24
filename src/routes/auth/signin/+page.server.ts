@@ -6,17 +6,23 @@ export const POST: Action = async ({ request, setHeaders }) => {
 	const form = await request.formData();
 	const { username, password } = Object.fromEntries(form) as { [name: string]: string };
 
-	const authInfo = await signIn(username, password);
-	const token = authInfo.getAccessToken().getJwtToken();
+	if (!(username && password)) {
+		return { errors: { usernameOrPasswordError: 'username or password missing' } };
+	}
 
-	setHeaders({
-		'Set-Cookie': serialize('token', token, {
-			path: '/',
-			httpOnly: true,
-			sameSite: 'strict',
-			secure: true
-		})
-	});
+	const authInfo = await signIn(username, password);
+	const token = authInfo?.AuthenticationResult?.AccessToken;
+
+	token &&
+		setHeaders({
+			'Set-Cookie': serialize('token', token, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				secure: true,
+				expires: new Date(Date.now() + 60 * 60 * 24)
+			})
+		});
 
 	return {
 		location: '/'

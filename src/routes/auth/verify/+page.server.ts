@@ -6,6 +6,10 @@ export const POST: Action = async ({ request, url }) => {
 	const { code } = Object.fromEntries(form) as { [name: string]: string };
 	const username = url.searchParams.get('username');
 
+	if (!(username && code)) {
+		return { errors: { usernameOrCodeError: 'username or code missing' } };
+	}
+
 	await verifyUser(username!, code);
 
 	return {

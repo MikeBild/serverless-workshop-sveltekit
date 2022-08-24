@@ -1,14 +1,14 @@
 import type { ExternalFetch, Handle, HandleError } from '@sveltejs/kit';
-import { getCurrentUsername, getCurrentUserGroups } from '$lib/auth';
+import { parse } from 'cookie';
+import { decode, type JwtPayload } from 'jsonwebtoken';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	try {
-		event.locals.username = await getCurrentUsername();
-		event.locals.usergroups = await getCurrentUserGroups();
-	} catch {
-		event.locals.username = '';
-		event.locals.usergroups = [];
-	}
+	const cookie = parse(event.request.headers.get('cookie') || '');
+	const payload = decode(cookie.token) as JwtPayload;
+
+	event.locals.accessToken = cookie.token;
+	event.locals.username = payload?.username;
+	event.locals.usergroups = payload ? payload['cognito:groups'] : undefined;
 
 	return await resolve(event);
 };
