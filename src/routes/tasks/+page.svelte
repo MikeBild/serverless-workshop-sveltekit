@@ -16,16 +16,16 @@
 		<thead>
 			<tr>
 				<th scope="col">id</th>
-				<th scope="col">task-token</th>
+				<th scope="col">updated at</th>
 				<th scope="col">actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#if data.users}
-				{#each data.tasks as { id, taskToken }}
+			{#if data.tasks}
+				{#each data.tasks as { id, taskToken, updatedAt }}
 					<tr>
 						<td>{id}</td>
-						<td>{taskToken}</td>
+						<td>{updatedAt}</td>
 						<td><button>Confirm</button><button>Stop</button></td>
 					</tr>
 				{/each}

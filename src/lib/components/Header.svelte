@@ -23,6 +23,7 @@
 					<li><a href="/contact">contact</a></li>
 					{#if username}
 						<li><a href="/users">users</a></li>
+						<li><a href="/tasks">tasks</a></li>
 					{/if}
 					<li>
 						{#if username}
