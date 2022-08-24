@@ -32,10 +32,10 @@ export class StepFunctionCallbackStack extends Stack {
 				integrationPattern: aws_stepfunctions.IntegrationPattern.WAIT_FOR_TASK_TOKEN,
 				lambdaFunction: this.stepfunctionCallbackHandler,
 				payload: aws_stepfunctions.TaskInput.fromObject({
-					id: randomUUID(),
+					id: aws_stepfunctions.JsonPath.stringAt('$.id'),
 					taskToken: aws_stepfunctions.JsonPath.taskToken
 				})
-			}).next(new aws_stepfunctions.Succeed(this, 'Hello World'))
+			}).next(new aws_stepfunctions.Succeed(this, 'done'))
 		});
 
 		this.stateMachine.grantTaskResponse(props.serverHandler);
