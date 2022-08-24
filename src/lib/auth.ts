@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import { USERPOOLCLIENTID, AWS_REGION } from '$env/static/private';
+import { USERPOOLCLIENTID, AWS_REGION, USERPOOLID } from '$env/static/private';
 
 const cognito = new AWS.CognitoIdentityServiceProvider({ region: AWS_REGION });
 
@@ -22,6 +22,7 @@ export function signUp(username: string, password: string) {
 			ClientId: USERPOOLCLIENTID,
 			Username: username,
 			Password: password,
+			UserAttributes: [{ Name: 'email', Value: username }],
 			ValidationData: [{ Name: 'email', Value: username }]
 		})
 		.promise();
@@ -35,6 +36,10 @@ export function verifyUser(username: string, code: string) {
 			ConfirmationCode: code
 		})
 		.promise();
+}
+
+export function deleteUser(username: string) {
+	return cognito.adminDeleteUser({ Username: username, UserPoolId: USERPOOLID }).promise();
 }
 
 export function signOut(accessToken?: string) {
