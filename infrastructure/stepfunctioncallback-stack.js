@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import {
 	Duration,
 	Stack,
@@ -15,17 +14,39 @@ export class StepFunctionCallbackStack extends Stack {
 			this,
 			'StepFunctionCallbackHandler',
 			{
-				code: aws_lambda.Code.fromInline(`exports.handler = async (event, context) => {
+				code: aws_lambda.Code.fromInline(`
+const AWS = require('aws-sdk');
+
+exports.handler = async (event, context) => {
     console.log({ event, context });
-    return 'Hello World!';
+
+	const ddb = new AWS.DynamoDB();
+	await ddb
+		.putItem({
+			TableName: process.env.TABLENAME,
+			Item: AWS.DynamoDB.Converter.marshall({
+				id: event.id,
+				type: 'task',
+				taskToken: event.taskToken,
+				updatedAt: new Date().toUTCString()
+			})
+		})
+		.promise();
+
+    return 'saved';
 };`),
 				handler: 'index.handler',
 				runtime: aws_lambda.Runtime.NODEJS_16_X,
 				timeout: Duration.minutes(15),
 				memorySize: 128,
-				logRetention: 7
+				logRetention: 7,
+				environment: {
+					TABLENAME: props.table.tableName
+				}
 			}
 		);
+
+		props.table.grantReadWriteData(this.stepfunctionCallbackHandler);
 
 		this.stateMachine = new aws_stepfunctions.StateMachine(this, 'StepFunctionStateMachine', {
 			definition: new aws_stepfunctions_tasks.LambdaInvoke(this, 'LambdaCallbackFunction', {

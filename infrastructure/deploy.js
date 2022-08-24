@@ -12,6 +12,9 @@ Tags.of(app).add('app', 'serverless-workshop');
 
 const { serverHandler, hostedZone } = new AWSAdapterStack(app, 'serverless-workshop-webapp');
 new CognitoStack(app, 'serverless-workshop-cognito-stack', { serverHandler });
-new DynamoDBStack(app, 'serverless-workshop-dynamodb', { serverHandler });
+const { table } = new DynamoDBStack(app, 'serverless-workshop-dynamodb', { serverHandler });
 new SESStack(app, 'serverless-workshop-ses', { serverHandler, hostedZone });
-new StepFunctionCallbackStack(app, 'serverless-workshop-stepfunction-callback', { serverHandler });
+new StepFunctionCallbackStack(app, 'serverless-workshop-stepfunction-callback', {
+	serverHandler,
+	table
+});
