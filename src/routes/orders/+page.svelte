@@ -11,9 +11,10 @@
 		await invalidate();
 	}
 
-	async function stopOrder(id: string) {
+	async function stopOrder(id: string, executionArn: string) {
 		await fetch(`/orders/${id}`, {
-			method: 'DELETE'
+			method: 'DELETE',
+			body: JSON.stringify({ executionArn })
 		});
 		await invalidate();
 	}
@@ -52,7 +53,7 @@
 							<td>{updatedAt}</td>
 							<td
 								><button on:click={() => confirmOrder(id, taskToken)}>Confirm</button><button
-									on:click={() => stopOrder(executionArn)}>Stop</button
+									on:click={() => stopOrder(id, executionArn)}>Stop</button
 								></td
 							>
 						</tr>

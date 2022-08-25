@@ -16,7 +16,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const POST: RequestHandler = async ({ locals }: RequestEvent) => {
 	const item = { id: randomUUID(), type: 'order', username: locals.username };
 
-	await startExecution(item);
+	try {
+		await startExecution(item);
+		await list<Order>('order');
+	} catch (err) {
+		return json({ message: 'start failed' }, { status: 400 });
+	}
 
-	return json(item, { status: 200 });
+	return json(item, { status: 201 });
 };

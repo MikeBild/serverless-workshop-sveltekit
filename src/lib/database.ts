@@ -12,7 +12,7 @@ export async function list<T>(type: string): Promise<T[] | undefined> {
 	const { Items } = await ddb
 		.scan({
 			TableName: TABLENAME,
-			ConsistentRead: true,
+			ConsistentRead: true,			
 			FilterExpression: '#d0a30 = :d0a30',
 			ExpressionAttributeValues: {
 				':d0a30': {
@@ -36,6 +36,15 @@ export async function upsert(item: Item): Promise<void> {
 				...item,
 				updatedAt: new Date().toUTCString()
 			})
+		})
+		.promise();
+}
+
+export async function remove(type: string, id: string): Promise<void> {
+	await ddb
+		.deleteItem({
+			TableName: TABLENAME,
+			Key: AWS.DynamoDB.Converter.marshall({ id, type })
 		})
 		.promise();
 }

@@ -8,7 +8,7 @@ export async function startExecution<T>(input: T & { id: string }) {
 		.startExecution({
 			stateMachineArn: STATEMACHINEARN!,
 			input: JSON.stringify(input),
-			name: input.id
+			name: input.id,
 		})
 		.promise();
 	stateMaschineExecution.executionArn;
