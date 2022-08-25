@@ -75,7 +75,10 @@ exports.handler = async (event, context) => {
 			}).next(new aws_stepfunctions.Succeed(this, 'done'))
 		});
 
-		this.stateMachine.grant(props.serverHandler, ['states:*']);
+		this.stateMachine.grantExecution(props.serverHandler, 'states:StopExecution');
+		this.stateMachine.grantStartExecution(props.serverHandler);
+		this.stateMachine.grantTaskResponse(props.serverHandler);
+		this.stateMachine.grantRead(props.serverHandler);
 
 		new CfnOutput(this, 'StateMachineArn', {
 			value: this.stateMachine.stateMachineArn
