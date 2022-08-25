@@ -1,12 +1,13 @@
-import { startExecution } from '$lib/stepfunction';
+import { stopExecution } from '$lib/stepfunction';
 import { json } from '@sveltejs/kit';
 import type { RequestEvent, RequestHandler } from './$types';
-import { randomUUID } from 'crypto';
 
-export const PUT: RequestHandler = async ({ locals }: RequestEvent) => {
-	const item = { id: randomUUID(), type: 'order', username: locals.username };
+export const DELETE: RequestHandler = async ({ params }: RequestEvent) => {
+	try {
+		await stopExecution(params.id);
+	} catch (err) {
+		console.error(err);
+	}
 
-	await startExecution(item);
-
-	return json(item, { status: 200 });
+	return json(undefined, { status: 204 });
 };

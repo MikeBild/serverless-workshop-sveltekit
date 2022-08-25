@@ -1,6 +1,8 @@
 export interface Order {
 	id?: string;
+	type: 'order';
 	taskToken?: string;
 	updatedAt?: string;
-	type: 'order';
+	executionArn?: string;
+	updatedBy?: string;
 }

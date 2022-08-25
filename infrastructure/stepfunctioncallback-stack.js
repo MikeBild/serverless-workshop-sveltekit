@@ -4,8 +4,10 @@ import {
 	aws_stepfunctions,
 	aws_lambda,
 	aws_stepfunctions_tasks,
-	CfnOutput
+	CfnOutput,
+	RemovalPolicy
 } from 'aws-cdk-lib';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 
 export class StepFunctionCallbackStack extends Stack {
 	constructor(scope, id, props) {
@@ -29,7 +31,8 @@ exports.handler = async (event, context) => {
 				id: event.id,
 				type: event.type || 'stepfunction',
 				taskToken: event.taskToken,
-				updatedBy: event.username,				
+				updatedBy: event.username,
+				executionArn: event.executionArn,
 				updatedAt: new Date().toUTCString()
 			})
 		})
@@ -41,7 +44,7 @@ exports.handler = async (event, context) => {
 				runtime: aws_lambda.Runtime.NODEJS_16_X,
 				timeout: Duration.minutes(15),
 				memorySize: 128,
-				logRetention: 7,
+				logRetention: RetentionDays.ONE_WEEK,
 				environment: {
 					TABLENAME: props.table.tableName
 				}
@@ -52,6 +55,13 @@ exports.handler = async (event, context) => {
 
 		this.stateMachine = new aws_stepfunctions.StateMachine(this, 'StepFunctionStateMachine', {
 			timeout: Duration.days(7),
+			logs: {
+				level: aws_stepfunctions.LogLevel.ALL,
+				destination: new LogGroup(this, 'StepFunctionsLogGroup', {
+					retention: RetentionDays.ONE_WEEK,
+					removalPolicy: RemovalPolicy.DESTROY
+				})
+			},
 			definition: new aws_stepfunctions_tasks.LambdaInvoke(this, 'LambdaCallbackFunction', {
 				integrationPattern: aws_stepfunctions.IntegrationPattern.WAIT_FOR_TASK_TOKEN,
 				lambdaFunction: this.stepfunctionCallbackHandler,
@@ -59,6 +69,7 @@ exports.handler = async (event, context) => {
 					id: aws_stepfunctions.JsonPath.stringAt('$.id'),
 					type: aws_stepfunctions.JsonPath.stringAt('$.type'),
 					username: aws_stepfunctions.JsonPath.stringAt('$.username'),
+					executionArn: aws_stepfunctions.JsonPath.stringAt('$$.Execution.Id'),
 					taskToken: aws_stepfunctions.JsonPath.taskToken
 				})
 			}).next(new aws_stepfunctions.Succeed(this, 'done'))
