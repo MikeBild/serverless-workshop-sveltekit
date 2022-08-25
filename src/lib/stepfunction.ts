@@ -6,9 +6,9 @@ const sf = new AWS.StepFunctions({ region: AWS_REGION });
 export async function startExecution<T>(input: T & { id: string }) {
 	const stateMaschineExecution = await sf
 		.startExecution({
-			stateMachineArn: STATEMACHINEARN!,
+			stateMachineArn: STATEMACHINEARN,
 			input: JSON.stringify(input),
-			name: input.id,
+			name: input.id
 		})
 		.promise();
 	stateMaschineExecution.executionArn;
