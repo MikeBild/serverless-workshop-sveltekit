@@ -26,13 +26,11 @@ export const POST: Action = async ({ request, setHeaders }) => {
 					expires: new Date(Date.now() + 60 * 60 * 24)
 				})
 			});
+			
+		return { location: '/' };
+	} catch (err) {
+		console.error(err);
 
-		return {
-			location: '/'
-		};
-	} catch (error) {
-		return {
-			errors: { usernameOrPasswordError: '', authenticationError: (error as Error).message }
-		};
+		return { errors: { usernameOrPasswordError: '', authenticationError: (err as Error).message } };
 	}
 };

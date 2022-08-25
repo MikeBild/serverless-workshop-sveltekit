@@ -19,9 +19,9 @@ export const POST: RequestHandler = async ({ locals }: RequestEvent) => {
 	try {
 		await startExecution(item);
 		await list<Order>('order');
+		return json(item, { status: 201 });
 	} catch (err) {
+		console.error(err);
 		return json({ message: 'start failed' }, { status: 400 });
 	}
-
-	return json(item, { status: 201 });
 };

@@ -6,7 +6,8 @@ export const DELETE: RequestHandler = async ({ params }: RequestEvent) => {
 	try {
 		await deleteUser(params.id);
 		return json(undefined, { status: 204 });
-	} catch (e) {
+	} catch (err) {
+		console.error(err);
 		return json(undefined, { status: 404 });
 	}
 };

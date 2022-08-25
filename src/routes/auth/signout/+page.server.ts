@@ -12,19 +12,21 @@ export const POST: Action = async ({ locals, setHeaders }) => {
 		throw redirect(303, '/auth/signin');
 	}
 
-	await signOut(locals.accessToken);
+	try {
+		await signOut(locals.accessToken);
 
-	setHeaders({
-		'Set-Cookie': serialize('token', '', {
-			path: '/',
-			httpOnly: true,
-			sameSite: 'strict',
-			secure: true,
-			expires: new Date(Date.now() - 3600)
-		})
-	});
-
-	return {
-		location: '/'
-	};
+		setHeaders({
+			'Set-Cookie': serialize('token', '', {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				secure: true,
+				expires: new Date(Date.now() - 3600)
+			})
+		});
+		return { location: '/' };
+	} catch (err) {
+		console.error(err);
+		return { location: '/' };
+	}
 };

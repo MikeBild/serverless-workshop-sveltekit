@@ -9,11 +9,11 @@ export const PUT: RequestHandler = async ({ params, request }: RequestEvent) => 
 	try {
 		await sendTaskSuccess(body.taskToken, item);
 		await remove('order', params.id);
+		return json(item, { status: 200 });
 	} catch (err) {
+		console.error(err);
 		return json({ message: 'order update failed' }, { status: 400 });
 	}
-
-	return json(item, { status: 200 });
 };
 
 export const DELETE: RequestHandler = async ({ params, request }: RequestEvent) => {
@@ -21,9 +21,9 @@ export const DELETE: RequestHandler = async ({ params, request }: RequestEvent) 
 	try {
 		await stopExecution(body.executionArn);
 		await remove('order', params.id);
+		return json(undefined, { status: 204 });
 	} catch (err) {
+		console.error(err);
 		return json({ message: 'stop failed' }, { status: 400 });
 	}
-
-	return json(undefined, { status: 204 });
 };

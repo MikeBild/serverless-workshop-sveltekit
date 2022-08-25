@@ -13,13 +13,10 @@ export const POST: Action = async ({ request }) => {
 
 	try {
 		await signUp(username, password);
+		return { location: `/auth/verify?username=${username}` };
+	} catch (err) {
+		console.error(err);
 
-		return {
-			location: `/auth/verify?username=${username}`
-		};
-	} catch (error) {
-		return {
-			errors: { usernameOrPasswordError: '', signUpError: (error as Error).message }
-		};
+		return { errors: { usernameOrPasswordError: '', signUpError: (err as Error).message } };
 	}
 };

@@ -56,3 +56,7 @@ export function verifyJwt(token: string, clientId: string, groups: string[]) {
 
 	return verifier.verify(token, { clientId, groups });
 }
+
+export function listUsers() {
+	return cognito.listUsers({ UserPoolId: USERPOOLID }).promise();
+}

@@ -12,11 +12,10 @@ export const POST: Action = async ({ request, url }) => {
 
 	try {
 		await verifyUser(username!, code);
+		return { location: '/auth/signin' };
+	} catch (err) {
+		console.error(err);
 
-		return {
-			location: '/auth/signin'
-		};
-	} catch (error) {
-		return { errors: { usernameOrCodeError: '', verifyCodeError: (error as Error).message } };
+		return { errors: { usernameOrCodeError: '', verifyCodeError: (err as Error).message } };
 	}
 };
