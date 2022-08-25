@@ -16,7 +16,7 @@
 		await fetch(`/orders`, { method: 'POST' });
 	}
 
-	async function stopOrder(id: string, executionArn: string) {
+	async function cancelOrder(id: string, executionArn: string) {
 		await fetch(`/orders/${id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({ executionArn })
@@ -24,7 +24,7 @@
 		await invalidate();
 	}
 
-	async function confirmOrder(id: string, taskToken: string) {
+	async function completeOrder(id: string, taskToken: string) {
 		await fetch(`/orders/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify({ taskToken })
@@ -60,11 +60,13 @@
 						<tr>
 							<td>{id}</td>
 							<td>{updatedAt}</td>
-							<td
-								><button on:click={() => confirmOrder(id, taskToken)}>Confirm</button><button
-									on:click={() => stopOrder(id, executionArn)}>Stop</button
-								></td
-							>
+							<td>
+								<button>confirm availability (WIP)</button>
+								<button>confirm payment (WIP)</button>
+								<button>confirm shipment (WIP)</button>
+								<button on:click={() => completeOrder(id, taskToken)}>complete order</button>
+								<button on:click={() => cancelOrder(id, executionArn)}>cancel order</button>
+							</td>
 						</tr>
 					{/each}
 				{/if}
