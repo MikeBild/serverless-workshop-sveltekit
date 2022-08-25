@@ -2,12 +2,13 @@ import type { PageServerLoad } from './$types';
 import AWS from 'aws-sdk';
 import { error } from '@sveltejs/kit';
 import { AWS_REGION, TABLENAME } from '$env/static/private';
-import type { Task } from '$models/User';
+import type { Order } from '$models/Order';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals?.usergroups?.includes('admins')) {
 		return error(403, 'access forbidden.');
 	}
+
 	const ddb = new AWS.DynamoDB({ region: AWS_REGION });
 	const { Items } = await ddb
 		.scan({
@@ -26,6 +27,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.promise();
 
 	return {
-		tasks: Items?.map((x) => AWS.DynamoDB.Converter.unmarshall(x))
+		orders: Items?.map<Order>((x) => AWS.DynamoDB.Converter.unmarshall(x))
 	};
 };

@@ -1,4 +1,4 @@
-export interface User {
+export interface Order {
 	id?: string;
 	taskToken?: string;
 	updatedAt?: string;

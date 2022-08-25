@@ -1,4 +1,4 @@
-export interface Task {
+export interface User {
 	username?: string;
 	enabled?: boolean;
 }

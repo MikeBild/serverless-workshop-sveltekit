@@ -105,10 +105,10 @@
     tiny-glob "^0.2.9"
     undici "^5.8.1"
 
-"@sveltejs/kit@1.0.0-next.432":
-  version "1.0.0-next.432"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.432.tgz#8abade612d41a52a9364200c4877e2d9a6e28f56"
-  integrity sha512-weGruEorXX2QJ+OoXbm46snqAaEtJOuSKP5G9VLTa5Ae2pBZE+6N2wWxvgP/iE1r7+9jlrdIyntvxGX0US6GYw==
+"@sveltejs/kit@1.0.0-next.437":
+  version "1.0.0-next.437"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.437.tgz#41f63758923e4feaf92d570227b553b36477815a"
+  integrity sha512-O0jTjJzb9zVqGpdWJxGiQzNe8eNPVxsfOownrqCTfAN5XDPAOvAYkIoax9xo/QYr/XlK0FKpscJXTuvLYYAXqg==
   dependencies:
     "@sveltejs/vite-plugin-svelte" "^1.0.1"
     cookie "^0.5.0"
@@ -224,10 +224,10 @@ aws-jwt-verify@3.1.0:
   resolved "https://registry.yarnpkg.com/aws-jwt-verify/-/aws-jwt-verify-3.1.0.tgz#d747b76f3c73918e186f8d71bcc5419eeb674610"
   integrity sha512-8BTDS3xEP5xhK6/mLEQXc7MfRRer5diV4Q2AD6ofoHQnaDbuDXG056egq4UCgo06+rmWQAC7/A6vVRZ/2FCs9g==
 
-aws-sdk@2.1201.0:
-  version "2.1201.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1201.0.tgz#e3fa4670800b419adf1e1a3a7d7c98a700705a39"
-  integrity sha512-TLlyn9kXHjBidP58Pw1x7VQfIAfvakljyOX6+AEId+KbEXZPN/PzZB2sf0cLAgKIUgTVvWX4RqSTXLDmeR5c8Q==
+aws-sdk@2.1202.0:
+  version "2.1202.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1202.0.tgz#5a8349d02d2092477e2a9b621c00e96eaf49cbf3"
+  integrity sha512-fFoEX+Id8/h/RIHw/gTZl3GnFF+RaXRmXueF7qCOqHm4g7mFOOgUUbc4BLbZ4gCDYRiyxNlGgija/je8EhLNRw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -332,10 +332,10 @@ constructs@10.1.84:
   resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.84.tgz#be136076ce8c0c7e0be5c1ab2974cea82dc1ee3f"
   integrity sha512-UeKlo2RAQOC7WR38qcGMGtvQse0gRK72eWBAik+/O7HEg0i4w3I6PzycXoNL48Y0qMQG1LF6g3+d84j9LCEt8A==
 
-constructs@10.1.85:
-  version "10.1.85"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.85.tgz#d4b9b95c314636d47cef696485a77c05bcfe921f"
-  integrity sha512-n5nr86NQKwUkUPPuDnFvHWetGowJn5a+/Ye3yNxyrXfViYwQtXqFmqBD+WQdsLrXeg5NezSFPK78SBVYkgFTkg==
+constructs@10.1.86:
+  version "10.1.86"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.86.tgz#007215a46998d033e2e9ae1511fff0ac2e67e7d5"
+  integrity sha512-yEC7T93oQU6pEhJlooqSq5JKNGOqMiOvmmnZtJxFBOmCNhUDddNmewb0/9K+FPMFMJn4MQ4G0qNGAaEqVgAyFg==
 
 cookie@0.5.0, cookie@^0.5.0:
   version "0.5.0"

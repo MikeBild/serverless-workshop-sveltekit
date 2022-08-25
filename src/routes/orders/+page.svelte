@@ -5,13 +5,13 @@
 	export let data: PageData;
 </script>
 
-<h2>Tasks</h2>
+<h2>orders</h2>
 
 {#if data.message}
 	<h4>{data.message}</h4>
 {/if}
 
-{#if data.tasks?.length}
+{#if data.orders?.length}
 	<table>
 		<thead>
 			<tr>
@@ -21,8 +21,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#if data.tasks}
-				{#each data.tasks as { id, taskToken, updatedAt }}
+			{#if data.orders}
+				{#each data.orders as { id, taskToken, updatedAt }}
 					<tr>
 						<td>{id}</td>
 						<td>{updatedAt}</td>

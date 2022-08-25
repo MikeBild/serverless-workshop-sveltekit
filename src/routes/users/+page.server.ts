@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals?.usergroups?.includes('admins')) {
 		return error(403, 'access forbidden.');
 	}
+	
 	const cognito = new AWS.CognitoIdentityServiceProvider({ region: AWS_REGION });
 	const { Users: users } = await cognito.listUsers({ UserPoolId: USERPOOLID }).promise();
 

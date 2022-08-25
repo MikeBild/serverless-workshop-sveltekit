@@ -12,7 +12,7 @@
 	}
 </script>
 
-<h2>Users</h2>
+<h2>users</h2>
 
 {#if data.message}
 	<h4>{data.message}</h4>
