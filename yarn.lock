@@ -219,6 +219,11 @@ aws-cdk@2.38.1:
   optionalDependencies:
     fsevents "2.3.2"
 
+aws-jwt-verify@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/aws-jwt-verify/-/aws-jwt-verify-3.1.0.tgz#d747b76f3c73918e186f8d71bcc5419eeb674610"
+  integrity sha512-8BTDS3xEP5xhK6/mLEQXc7MfRRer5diV4Q2AD6ofoHQnaDbuDXG056egq4UCgo06+rmWQAC7/A6vVRZ/2FCs9g==
+
 aws-sdk@2.1201.0:
   version "2.1201.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1201.0.tgz#e3fa4670800b419adf1e1a3a7d7c98a700705a39"
