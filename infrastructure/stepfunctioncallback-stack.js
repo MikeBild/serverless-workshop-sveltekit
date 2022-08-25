@@ -3,7 +3,8 @@ import {
 	Stack,
 	aws_stepfunctions,
 	aws_lambda,
-	aws_stepfunctions_tasks
+	aws_stepfunctions_tasks,
+	CfnOutput
 } from 'aws-cdk-lib';
 
 export class StepFunctionCallbackStack extends Stack {
@@ -26,8 +27,9 @@ exports.handler = async (event, context) => {
 			TableName: process.env.TABLENAME,
 			Item: AWS.DynamoDB.Converter.marshall({
 				id: event.id,
-				type: 'task',
+				type: event.type || 'stepfunction',
 				taskToken: event.taskToken,
+				updatedBy: event.username,				
 				updatedAt: new Date().toUTCString()
 			})
 		})
@@ -55,6 +57,8 @@ exports.handler = async (event, context) => {
 				lambdaFunction: this.stepfunctionCallbackHandler,
 				payload: aws_stepfunctions.TaskInput.fromObject({
 					id: aws_stepfunctions.JsonPath.stringAt('$.id'),
+					type: aws_stepfunctions.JsonPath.stringAt('$.type'),
+					username: aws_stepfunctions.JsonPath.stringAt('$.username'),
 					taskToken: aws_stepfunctions.JsonPath.taskToken
 				})
 			}).next(new aws_stepfunctions.Succeed(this, 'done'))
@@ -62,5 +66,9 @@ exports.handler = async (event, context) => {
 
 		this.stateMachine.grantTaskResponse(props.serverHandler);
 		this.stateMachine.grantStartExecution(props.serverHandler);
+
+		new CfnOutput(this, 'StateMachineArn', {
+			value: this.stateMachine.stateMachineArn
+		});
 	}
 }
