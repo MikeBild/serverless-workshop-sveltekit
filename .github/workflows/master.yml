@@ -7,10 +7,9 @@ on:
 env:
   AWS_REGION: 'eu-central-1'
   AWS_ACCOUNT: '044086961882'
-# permission can be added at job level or workflow level
 permissions:
   id-token: write
-  contents: read # This is required for actions/checkout
+  contents: read
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -21,6 +20,7 @@ jobs:
       USERPOOLCLIENTID: 3fs2du0hfa79h0dhbpj2pemmej
       USERPOOLID: eu-central-1_hacjCt0Es
       TABLENAME: serverless-workshop-dynamodb-DynamoDBTable59784FC0-NBYX059G5K8N
+      STATEMACHINEARN: arn:aws:states:eu-central-1:044086961882:stateMachine:StepFunctionStateMachine81AB36C3-vzCy2FBH7wux
 
     steps:
       - name: Git clone the repository
