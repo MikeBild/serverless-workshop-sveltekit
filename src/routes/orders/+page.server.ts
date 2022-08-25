@@ -14,6 +14,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const POST: RequestHandler = async ({ locals }: RequestEvent) => {
+	if (!locals.username) return json({ message: 'access forbidden' }, { status: 403 });
+
 	const item = { id: randomUUID(), type: 'order', username: locals.username };
 
 	try {

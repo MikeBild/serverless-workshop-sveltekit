@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
 	import type { PageData } from './$types';
+	import ModalOk from '$lib/components/ModalOk.svelte';
 
 	export let data: PageData;
 
-	async function startOrder() {
-		await fetch(`/orders`, {
-			method: 'POST'
-		});
+	let isOpen = false;
+
+	async function refetch() {
 		await invalidate();
+	}
+
+	async function startOrder() {
+		isOpen = true;
+		await fetch(`/orders`, { method: 'POST' });
 	}
 
 	async function stopOrder(id: string, executionArn: string) {
@@ -27,6 +32,10 @@
 		await invalidate();
 	}
 </script>
+
+<ModalOk bind:isOpen on:ok={refetch} on:close={refetch} title="order executed">
+	<h4>thank you</h4>
+</ModalOk>
 
 <h2>orders</h2>
 
