@@ -1,8 +1,9 @@
 import { redirect, type Action } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import { signOut } from '$lib/auth';
 import { serialize } from 'cookie';
 
-export const load = () => {
+export const load: PageServerLoad = () => {
 	throw redirect(303, '/auth/signin');
 };
 
@@ -10,12 +11,8 @@ export const POST: Action = async ({ locals, setHeaders }) => {
 	if (!locals.accessToken) {
 		throw redirect(303, '/auth/signin');
 	}
-	
-	await signOut(locals.accessToken);
 
-	locals.accessToken = undefined;
-	locals.username = undefined;
-	locals.usergroups = undefined;
+	await signOut(locals.accessToken);
 
 	setHeaders({
 		'Set-Cookie': serialize('token', '', {

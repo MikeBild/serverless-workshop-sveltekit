@@ -1,25 +1,22 @@
+import { verifyJwt } from '$lib/auth';
 import type { ExternalFetch, Handle, HandleError } from '@sveltejs/kit';
 import { parse } from 'cookie';
 import { decode, type JwtPayload } from 'jsonwebtoken';
-import { CognitoJwtVerifier } from 'aws-jwt-verify';
-import { USERPOOLID } from '$env/static/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookie = parse(event.request.headers.get('cookie') || '');
-	const token = cookie.token;
-	const payload = decode(token) as JwtPayload;
+	if (!cookie.token) return await resolve(event);
+
+	const accessToken = cookie.token;
+	const payload = decode(accessToken) as JwtPayload;
 	const groups = payload ? payload['cognito:groups'] : undefined;
-	const clientId = payload?.client_id as string;
 	const username = payload?.username;
+	const clientId = payload?.client_id as string;
 
 	try {
-		const verifier = CognitoJwtVerifier.create({
-			userPoolId: USERPOOLID,
-			tokenUse: 'access'
-		});
-		const payload = await verifier.verify(token, { clientId, groups });
+		await verifyJwt(accessToken, clientId, groups);
 
-		event.locals.accessToken = token;
+		event.locals.accessToken = accessToken;
 		event.locals.username = username;
 		event.locals.usergroups = groups;
 	} catch {
