@@ -15,9 +15,7 @@
 
 		<li>
 			<details role="list" dir="rtl">
-				<summary aria-haspopup="listbox" role="link" class="contrast"
-					><i class="ri-menu-4-fill" /></summary
-				>
+				<summary aria-haspopup="listbox" role="link" class="contrast">more</summary>
 				<ul role="listbox">
 					<li><a href="/shop">shop</a></li>
 					<li><a href="/contact">contact</a></li>

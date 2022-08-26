@@ -1432,10 +1432,10 @@ svelte@3.49.0:
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
   integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
 
-sveltekit-adapter-aws@4.2.5:
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/sveltekit-adapter-aws/-/sveltekit-adapter-aws-4.2.5.tgz#dc3e8d0316b28715ecbc29bdc8b17981de766fc4"
-  integrity sha512-9Mu6/vDwGp4VkbETS4x5SvIpQmdoWUu8FqBnFbOx5CYIp8qwxIk0XiW5X7BbLSDbslnGARhY67fjdQerjJUoGw==
+sveltekit-adapter-aws@4.2.6:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/sveltekit-adapter-aws/-/sveltekit-adapter-aws-4.2.6.tgz#81ff54d57b6fd8982b0c0ce0dfbb83d1c4ba06d2"
+  integrity sha512-Jyh76/rN3uQjjt5/9wrH+MzXKwDsJ4Qhg8U/n2dokxqmwoUoYnZ1USRUo3wz5vduthR54ntZMl9q9yp/MrnPng==
   dependencies:
     "@aws-cdk/aws-apigatewayv2-alpha" "2.39.0-alpha.0"
     "@aws-cdk/aws-apigatewayv2-integrations-alpha" "2.39.0-alpha.0"

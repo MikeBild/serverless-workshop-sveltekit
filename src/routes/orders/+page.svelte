@@ -54,7 +54,7 @@
 		<button on:click={startOrder} aria-busy={isLoading} disabled={isLoading}>Start</button>
 	</div>
 	{#if data.orders?.length}
-		<table>
+		<table role="grid">
 			<thead>
 				<tr>
 					<th scope="col">id</th>
