@@ -4,7 +4,6 @@
 	--font-weight: 400;
 	--border-radius: 0;
 	background-color: black;
-	
 }
 
 /* Typography */
@@ -64,4 +63,8 @@ aside img {
 aside p {
 	margin-bottom: var(--spacing-company);
 	line-height: 1.25;
+}
+
+button {
+	border-radius: 0;
 }

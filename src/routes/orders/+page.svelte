@@ -6,30 +6,36 @@
 	export let data: PageData;
 
 	let isOpen = false;
+	let isLoading = false;
 
 	async function refetch() {
+		isLoading = true;
 		await invalidate();
+		isLoading = false;
 	}
 
 	async function startOrder() {
-		isOpen = true;
+		isLoading = true;
 		await fetch(`/orders`, { method: 'POST' });
+		await refetch();
 	}
 
 	async function cancelOrder(id: string, executionArn: string) {
+		isLoading = true;
 		await fetch(`/orders/${id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({ executionArn })
 		});
-		await invalidate();
+		await refetch();
 	}
 
 	async function completeOrder(id: string, taskToken: string) {
+		isLoading = true;
 		await fetch(`/orders/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify({ taskToken })
 		});
-		await invalidate();
+		await refetch();
 	}
 </script>
 
@@ -44,7 +50,9 @@
 {/if}
 
 {#if !data.message}
-	<div><button on:click={startOrder}>Start</button></div>
+	<div>
+		<button on:click={startOrder} aria-busy={isLoading} disabled={isLoading}>Start</button>
+	</div>
 	{#if data.orders?.length}
 		<table>
 			<thead>
@@ -61,11 +69,15 @@
 							<td>{id}</td>
 							<td>{updatedAt}</td>
 							<td>
-								<button>confirm availability (WIP)</button>
-								<button>confirm payment (WIP)</button>
-								<button>confirm shipment (WIP)</button>
-								<button on:click={() => completeOrder(id, taskToken)}>complete order</button>
-								<button on:click={() => cancelOrder(id, executionArn)}>cancel order</button>
+								<button disabled={isLoading}>confirm availability (WIP)</button>
+								<button disabled={isLoading}>confirm payment (WIP)</button>
+								<button disabled={isLoading}>confirm shipment (WIP)</button>
+								<button disabled={isLoading} on:click={() => completeOrder(id, taskToken)}
+									>complete order</button
+								>
+								<button disabled={isLoading} on:click={() => cancelOrder(id, executionArn)}
+									>cancel order</button
+								>
 							</td>
 						</tr>
 					{/each}
