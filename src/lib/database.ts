@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
-import { AWS_REGION, TABLENAME } from '$env/static/private';
+import { TABLENAME } from '$env/static/private';
 
-const ddb = new AWS.DynamoDB({ region: AWS_REGION });
+const ddb = new AWS.DynamoDB();
 
 export interface Item {
 	id: string;
@@ -12,7 +12,7 @@ export async function list<T>(type: string): Promise<T[] | undefined> {
 	const { Items } = await ddb
 		.scan({
 			TableName: TABLENAME,
-			ConsistentRead: true,			
+			ConsistentRead: true,
 			FilterExpression: '#d0a30 = :d0a30',
 			ExpressionAttributeValues: {
 				':d0a30': {

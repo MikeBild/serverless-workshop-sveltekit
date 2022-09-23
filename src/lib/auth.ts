@@ -1,9 +1,9 @@
 import AWS from 'aws-sdk';
-import { USERPOOLCLIENTID, AWS_REGION, USERPOOLID } from '$env/static/private';
+import { USERPOOLCLIENTID, USERPOOLID } from '$env/static/private';
 
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
-const cognito = new AWS.CognitoIdentityServiceProvider({ region: AWS_REGION });
+const cognito = new AWS.CognitoIdentityServiceProvider();
 
 export function signIn(username: string, password: string) {
 	return cognito

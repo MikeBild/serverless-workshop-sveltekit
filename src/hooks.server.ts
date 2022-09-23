@@ -1,5 +1,5 @@
 import { verifyJwt } from '$lib/auth';
-import type { ExternalFetch, Handle, HandleError } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 import { parse } from 'cookie';
 import { decode, type JwtPayload } from 'jsonwebtoken';
 
@@ -26,13 +26,4 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	return await resolve(event);
-};
-
-export const handleError: HandleError = async ({ error, event }) => {
-	// send error to an error tracking service
-};
-
-export const externalFetch: ExternalFetch = async (request) => {
-	// add some authorization headers etc.
-	return fetch(request);
 };
